@@ -34,17 +34,18 @@ polipo \
 polipoPID=$!
 log "polipo process started (PID: $polipoPID)"
 
-trap 'log "requested shutdown"; kill -9 $torPID $polipoPID 2>/dev/null; exit' SIGINT SIGTERM
+trap 'kill $torPID $polipoPID 2>/dev/null; exit' SIGINT SIGTERM
+
 
 log "all processes spawned! begin monitoring phase"
 while sleep 1; do
     if ! kill -0 $torPID 2>/dev/null; then
-        log "panic shutdown: tor process died!"
+        log "ERROR: tor process died!"
         kill $polipoPID
         exit 1
     fi
     if ! kill -0 $polipoPID 2>/dev/null; then
-        log "panic shutdown: polipo process died!"
+        log "ERROR: polipo process died!"
         kill $torPID
         exit 1
     fi
