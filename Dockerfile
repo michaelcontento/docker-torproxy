@@ -24,4 +24,4 @@ ADD torproxy.bash /usr/local/bin/torproxy
 
 EXPOSE 9050
 
-CMD ["bash", "/usr/local/bin/torproxy"]
+CMD ["/usr/local/bin/torproxy"]
