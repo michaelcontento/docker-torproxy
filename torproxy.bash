@@ -36,7 +36,6 @@ log "polipo process started (PID: $polipoPID)"
 
 trap 'kill $torPID $polipoPID 2>/dev/null; exit' SIGINT SIGTERM
 
-
 log "all processes spawned! begin monitoring phase"
 while sleep 1; do
     if ! kill -0 $torPID 2>/dev/null; then
